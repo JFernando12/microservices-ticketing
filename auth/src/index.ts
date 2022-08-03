@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from 'morgan';
+import { NotFoundError } from "./errors/not-found-error";
 import { errorHandler } from "./middlewares/error-handler";
 import { currentuserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";
@@ -12,10 +13,14 @@ app.use(express.json());
 app.use(express.urlencoded( { extended: false }));
 app.use(morgan('dev'));
 
-app.use('/api/users', currentuserRouter);
-app.use('/api/users', signinRouter);
-app.use('/api/users', signoutRouter);
-app.use('/api/users', signupRouter);
+app.use('/api', currentuserRouter);
+app.use('/api', signinRouter);
+app.use('/api', signoutRouter);
+app.use('/api', signupRouter);
+
+app.all('*', async() => {
+    throw new NotFoundError();
+})
 
 app.use(errorHandler);
 
