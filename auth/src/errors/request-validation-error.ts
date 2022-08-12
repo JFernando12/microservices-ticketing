@@ -13,9 +13,8 @@ export class RequestValidationError extends CustomError {
     }
 
     serializeErrors() {
-        const errors = this.errors.map(error => {
+        return this.errors.map(error => {
             return { message: error.msg, field: error.param};
-        })
-        return errors;
+        });
     }
 }

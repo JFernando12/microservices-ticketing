@@ -1,4 +1,5 @@
 import express from "express";
+import "express-async-errors";
 import morgan from 'morgan';
 import { NotFoundError } from "./errors/not-found-error";
 import { errorHandler } from "./middlewares/error-handler";
@@ -20,7 +21,7 @@ app.use('/api/users', signinRouter);
 app.use('/api/users', signoutRouter);
 app.use('/api/users', signupRouter);
 
-app.all('*', async() => {
+app.all('*', async(req, res) => {
     throw new NotFoundError();
 })
 
