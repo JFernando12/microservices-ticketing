@@ -5,14 +5,21 @@ export default () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState([]);
 
     const onSubmit = async (event) => {
-        event.preventDefault();
-        const response = await axios.post("/api/users/signup", {
-            email,
-            password
-        })
-        console.log(response);
+        try {
+            event.preventDefault();
+            const response = await axios.post("/api/users/signup", {
+                email,
+                password
+            })
+            console.log(response);
+        } catch (error) {
+            console.log(error.response.data)
+            setErrors(error.response.data.errors)
+        }
+        
     }
 
     return(
@@ -26,6 +33,12 @@ export default () => {
                 <label>Password</label>
                 <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="form-control"></input>
             </div>
+            {errors.length > 0 && <div className='alert alert-danger'>
+                <h4>Opss..</h4>
+                <ul>
+                    {errors.map(error => <li key={error.message}>{error.message}</li>)}
+                </ul>
+            </div>}
             <button className="btn btn-primary">Sign Up</button>
         </form>
     );
