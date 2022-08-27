@@ -1,3 +1,3 @@
 export default () => {
-    return <div>Landing page</div>
+    return <h1>Landing page</h1>
 }
