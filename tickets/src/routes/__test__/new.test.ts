@@ -45,7 +45,6 @@ it('return a status 400 when the title or prices is wrong', async () => {
 
 it('creates a ticket with valid inputs', async () => {
   let tickets = await Ticket.find({});
-  console.log(tickets);
   expect(tickets.length).toEqual(0);
 
   const title = 'asdf';
@@ -60,6 +59,5 @@ it('creates a ticket with valid inputs', async () => {
     .expect(201);
 
   tickets = await Ticket.find();
-  console.log(tickets);
   expect(tickets.length).toEqual(1);
 });
