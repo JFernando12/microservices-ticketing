@@ -26,9 +26,14 @@ router.put(
       throw new NotFoundError();
     }
 
-    if (ticket.id !== req.currentUser?.id) {
+    if (ticket.userId !== req.currentUser?.id) {
       throw new NotAuthorizedErrror();
     }
+
+    ticket.set({ title: req.body.title, price: req.body.price });
+    await ticket.save();
+
+    res.send(ticket);
   }
 );
 

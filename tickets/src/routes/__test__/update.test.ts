@@ -55,11 +55,19 @@ it('updates the ticket provided valid inputs', async () => {
     .send({ title: 'asd', price: 10 })
     .expect(201);
 
-  console.log(response.body);
-
-  request(app)
+  const title = 'Titulo 1';
+  const price = 20;
+  await request(app)
     .put(`/api/tickets/${response.body.id}`)
     .set('Cookie', cookie)
-    .send({ title: 'Titulo 1', price: 20 })
+    .send({ title, price })
     .expect(200);
+
+  const updatedResponse = await request(app)
+    .get(`/api/tickets/${response.body.id}`)
+    .send()
+    .expect(200);
+
+  expect(updatedResponse.body.title).toEqual(title);
+  expect(updatedResponse.body.price).toEqual(price);
 });
