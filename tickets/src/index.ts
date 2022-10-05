@@ -10,13 +10,29 @@ if (!process.env.MONGO_URI) {
   throw new Error('MONGO_URI must exist');
 }
 
+if (!process.env.NATS_CLIENT_ID) {
+  throw new Error('NATS_CLIENT_ID must exist');
+}
+
+if (!process.env.NATS_URL) {
+  throw new Error('NATS_URL must exist');
+}
+
+if (!process.env.NATS_CLUSTER_ID) {
+  throw new Error('NATS_CLUSTER_ID must exist');
+}
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then((db) => console.log('DB connected:', db.connections[0].name))
   .catch((err) => console.error(err));
 
 natsWrapper
-  .connect('ticketing', 'asdfsdgsdgdf', 'http://nats-srv:4222')
+  .connect(
+    process.env.NATS_CLUSTER_ID,
+    process.env.NATS_CLIENT_ID,
+    process.env.NATS_URL
+  )
   .catch((err) => console.error(err));
 
 natsWrapper.client.on('close', () => {
