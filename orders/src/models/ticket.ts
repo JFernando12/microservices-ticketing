@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Order, OrderStatus } from './order';
 
 interface TicketAttrs {
   title: string;
@@ -42,5 +43,20 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
 };
 ticketSchema.methods.isReserved = async function () {
   // this === the ticket document that we just called 'isReserved' on
-  const existingOrder = await Order;
+  const existingOrder = await Order.findOne({
+    ticket: this,
+    status: {
+      $in: [
+        OrderStatus.Created,
+        OrderStatus.AwaitingPayment,
+        OrderStatus.Complete,
+      ],
+    },
+  });
+
+  return !!existingOrder;
 };
+
+const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', ticketSchema);
+
+export { Ticket };
