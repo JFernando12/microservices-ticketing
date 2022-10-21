@@ -1,5 +1,7 @@
+import { OrderStatus } from '@jfticketing/common';
 import request from 'supertest';
 import { app } from '../../app';
+import { Order } from '../../models/order';
 import { Ticket } from '../../models/ticket';
 
 it('Mark an order as cancelled', async () => {
@@ -20,12 +22,15 @@ it('Mark an order as cancelled', async () => {
     .send({ ticketId: ticket.id })
     .expect(201);
 
-  // Cancel order
+  // Cancell order
   await request(app)
     .delete(`/api/orders/${order.id}`)
     .set('Cookie', user)
     .send({})
     .expect(204);
+
+  const orderUpdated = await Order.findById(order.id);
+  expect(orderUpdated?.status).toEqual(OrderStatus.Cancelled);
 });
 
 it.todo('Emits an order cancelled event');
