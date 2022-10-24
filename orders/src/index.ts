@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import { app } from './app';
+import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
+import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
 import { natsWrapper } from './nats-wrapper';
 
 if (!process.env.JWT_KEY) {
@@ -41,6 +43,9 @@ natsWrapper.client.on('close', () => {
 });
 process.on('SIGINT', () => natsWrapper.client.close());
 process.on('SIGTERM', () => natsWrapper.client.close());
+
+new TicketCreatedListener(natsWrapper.client).listen();
+new TicketUpdatedListener(natsWrapper.client).listen();
 
 app.listen(3000, () => {
   console.log('Server on port 3000');
