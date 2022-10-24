@@ -35,6 +35,11 @@ natsWrapper
     process.env.NATS_CLIENT_ID,
     process.env.NATS_URL
   )
+  .then(() => {
+    console.log('Escuchando');
+    new TicketCreatedListener(natsWrapper.client).listen();
+    new TicketUpdatedListener(natsWrapper.client).listen();
+  })
   .catch((err) => console.error(err));
 
 natsWrapper.client.on('close', () => {
@@ -43,9 +48,6 @@ natsWrapper.client.on('close', () => {
 });
 process.on('SIGINT', () => natsWrapper.client.close());
 process.on('SIGTERM', () => natsWrapper.client.close());
-
-new TicketCreatedListener(natsWrapper.client).listen();
-new TicketUpdatedListener(natsWrapper.client).listen();
 
 app.listen(3000, () => {
   console.log('Server on port 3000');
