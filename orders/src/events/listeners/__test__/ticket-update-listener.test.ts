@@ -58,8 +58,10 @@ it('acks the message', async () => {
 it('Does not call ack if the event has a skipped version number', async () => {
   const { listener, data, msg } = await setup();
 
+  // Change to incorrect version
   data.version = 10;
 
+  // Implement try catch to avoid innecessary errors in test
   try {
     await listener.onMessage(data, msg);
   } catch (e) {}
