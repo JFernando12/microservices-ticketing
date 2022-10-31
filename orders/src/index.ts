@@ -46,8 +46,14 @@ natsWrapper.client.on('close', () => {
   console.log('NATS connection closed!');
   process.exit();
 });
-process.on('SIGINT', () => natsWrapper.client.close());
-process.on('SIGTERM', () => natsWrapper.client.close());
+process.on('SIGINT', () => {
+  console.log('SIGINT activated');
+  natsWrapper.client.close();
+});
+// process.on('SIGTERM', () => {
+//   console.log('SIGTERM activated');
+//   natsWrapper.client.close();
+// });
 
 app.listen(3000, () => {
   console.log('Server on port 3000');
