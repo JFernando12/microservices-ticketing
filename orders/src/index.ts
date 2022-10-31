@@ -36,7 +36,6 @@ natsWrapper
     process.env.NATS_URL
   )
   .then(() => {
-    console.log('Escuchando');
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
   })
