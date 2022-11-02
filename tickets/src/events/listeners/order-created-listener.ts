@@ -1,7 +1,6 @@
 import { Listener, OrderCreatedEvent, Subjects } from '@jfticketing/common';
 import { Message } from 'node-nats-streaming';
 import { Ticket } from '../../models/ticket';
-import { natsWrapper } from '../../nats-wrapper';
 import { TicketUpdatedPublisher } from '../publishers/ticket-update-publisher';
 import { queueGroupName } from './queue-group-name';
 
@@ -20,12 +19,17 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     ticket.set({ orderId: data.id });
     ticket.save();
 
-    new TicketUpdatedPublisher(natsWrapper.client).publish({
-      id: '',
-      version: 0,
-      title: '',
-      price: 0,
-      userId: '',
+    // Publish ticket updated event
+    new TicketUpdatedPublisher(this.client).publish({
+      id: ticket.id,
+      version: ticket.version,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+      orderId: ticket.orderId,
     });
+
+    // Ack message
+    msg.ack();
   }
 }
