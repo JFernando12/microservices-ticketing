@@ -17,7 +17,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
     // Set orderId means that ticket has been reserved
     ticket.set({ orderId: data.id });
-    ticket.save();
+    await ticket.save();
 
     // Publish ticket updated event
     new TicketUpdatedPublisher(this.client).publish({
