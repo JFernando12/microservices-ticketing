@@ -40,5 +40,6 @@ it('update the ticket, publishes an event, and ack the message', async () => {
   const ticketUpdated = await Ticket.findById(ticket.id);
 
   expect(ticketUpdated?.orderId).not.toBeDefined();
+  expect(natsWrapper.client.publish).toBeCalled();
   expect(msg.ack).toBeCalled();
 });
