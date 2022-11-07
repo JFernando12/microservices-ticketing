@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import { app } from './app';
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
 import { natsWrapper } from './nats-wrapper';
 
 if (!process.env.JWT_KEY) {
@@ -33,6 +35,10 @@ natsWrapper
     process.env.NATS_CLIENT_ID,
     process.env.NATS_URL
   )
+  .then(() => {
+    new OrderCreatedListener(natsWrapper.client);
+    new OrderCancelledListener(natsWrapper.client);
+  })
   .catch((err) => console.error(err));
 
 natsWrapper.client.on('close', () => {
