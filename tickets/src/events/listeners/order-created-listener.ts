@@ -9,6 +9,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
+    console.log('Holaa soy tickets');
     const ticket = await Ticket.findById(data.ticket.id);
 
     if (!ticket) {

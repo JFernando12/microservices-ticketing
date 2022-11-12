@@ -38,6 +38,7 @@ natsWrapper
   .then(() => {
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
+    console.log('Orders listening');
   })
   .catch((err) => console.error(err));
 

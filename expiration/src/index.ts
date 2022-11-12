@@ -20,7 +20,7 @@ natsWrapper
     process.env.NATS_URL
   )
   .then(() => {
-    new OrderCreatedListener(natsWrapper.client);
+    new OrderCreatedListener(natsWrapper.client).listen();
   })
   .catch((err) => console.error(err));
 

@@ -36,8 +36,9 @@ natsWrapper
     process.env.NATS_URL
   )
   .then(() => {
-    new OrderCreatedListener(natsWrapper.client);
-    new OrderCancelledListener(natsWrapper.client);
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
+    console.log('Tickets listening');
   })
   .catch((err) => console.error(err));
 
@@ -46,7 +47,7 @@ natsWrapper.client.on('close', () => {
   process.exit();
 });
 process.on('SIGINT', () => natsWrapper.client.close());
-process.on('SIGTERM', () => natsWrapper.client.close());
+// process.on('SIGTERM', () => natsWrapper.client.close());
 
 app.listen(3000, () => {
   console.log('Server on port 3000');
