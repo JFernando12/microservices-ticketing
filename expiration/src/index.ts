@@ -29,4 +29,4 @@ natsWrapper.client.on('close', () => {
   process.exit();
 });
 process.on('SIGINT', () => natsWrapper.client.close());
-process.on('SIGTERM', () => natsWrapper.client.close());
+// process.on('SIGTERM', () => natsWrapper.client.close());

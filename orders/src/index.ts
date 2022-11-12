@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { app } from './app';
+import { ExpirationCompleteListener } from './events/listeners/expiration-complete-listener';
 import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
 import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
 import { natsWrapper } from './nats-wrapper';
@@ -38,6 +39,7 @@ natsWrapper
   .then(() => {
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
+    new ExpirationCompleteListener(natsWrapper.client).listen();
     console.log('Orders listening');
   })
   .catch((err) => console.error(err));
