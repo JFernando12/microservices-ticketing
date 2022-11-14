@@ -1,4 +1,4 @@
-import mongoose, { version } from 'mongoose';
+import mongoose from 'mongoose';
 import { Order, OrderStatus } from './order';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
@@ -8,7 +8,7 @@ interface TicketAttrs {
   price: number;
 }
 
-interface TicketDoc extends mongoose.Document {
+export interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
   version: number;
