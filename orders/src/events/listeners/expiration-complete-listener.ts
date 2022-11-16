@@ -23,6 +23,7 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
       return msg.ack();
     }
 
+    console.log('Hola 2');
     order.set({ status: OrderStatus.Cancelled });
     await order.save();
 
