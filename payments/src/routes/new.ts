@@ -8,8 +8,10 @@ import {
 } from '@jfticketing/common';
 import { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
+import { PaymentCreatedPublisher } from '../events/publishers/payment-created-publisher';
 import { Order } from '../models/order';
 import { Payment } from '../models/payment';
+import { natsWrapper } from '../nats-wrapper';
 import { stripe } from '../stripe';
 
 const router = Router();
@@ -46,6 +48,12 @@ router.post(
       stripeId: charge.id,
     });
     await payment.save();
+
+    await new PaymentCreatedPublisher(natsWrapper.client).publish({
+      id: payment.id,
+      orderId: payment.orderId,
+      stripeId: payment.stripeId,
+    });
 
     res.send({ success: true });
   }
