@@ -18,7 +18,7 @@
   "author": "Fernando Castrejón <fernandocastrejonh@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@jfticketing/common": "^1.0.13",
+    "@jfticketing/common": "^1.0.14",
     "@types/bull": "^4.10.0",
     "bull": "^4.10.1",
     "ts-node-dev": "^2.0.0",
