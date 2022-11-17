@@ -5,9 +5,11 @@ if (!process.env.JWT_KEY) {
   throw new Error('jwt_key must exist');
 }
 
-if(!process.env.MONGO_URI) {
+if (!process.env.MONGO_URI) {
   throw new Error('MONGO_URI must exit');
 }
+
+console.log('Starting auth...');
 
 mongoose
   .connect(process.env.MONGO_URI)
