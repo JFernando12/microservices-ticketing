@@ -40,6 +40,6 @@
     "mongodb-memory-server": "^8.9.0",
     "morgan": "^1.10.0",
     "supertest": "^6.2.4",
-    "ts-jest": "27.0.4"
+    "ts-jest": "27.0.2"
   }
 }
