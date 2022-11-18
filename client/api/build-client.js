@@ -1,16 +1,19 @@
 import axios from 'axios';
 
-export default ({ req }) => {
+const buildClient = ({ req }) => {
   if (typeof window === 'undefined') {
-    const client = axios.create({
-      baseURL: 'http://www.fernandocastrejon.com/',
+    // We are on the server
+
+    return axios.create({
+      baseURL: 'http://www.fernandocastrejon.com',
       headers: req.headers,
     });
-    return client;
   } else {
-    const client = axios.create({
-      baseURL: '/',
+    // We must be on the browser
+    return axios.create({
+      baseUrl: '/',
     });
-    return client;
   }
 };
+
+export default buildClient;
