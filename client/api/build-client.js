@@ -3,8 +3,7 @@ import axios from 'axios';
 export default ({ req }) => {
   if (typeof window === 'undefined') {
     const client = axios.create({
-      baseURL:
-        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+      baseURL: 'www.fernandocastrejon.com',
       headers: req.headers,
     });
     return client;
