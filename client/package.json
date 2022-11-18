@@ -7,23 +7,14 @@
     "dev": "next"
   },
   "keywords": [],
-  "author": "Fernando Castrejón <fernandocastrejonh@gmail.com>",
-  "license": "MIT",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "axios": "^0.27.2",
-    "bootstrap": "^5.2.0",
-    "next": "^12.2.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "axios": "^0.21.1",
+    "bootstrap": "^5.0.1",
+    "next": "^10.2.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-stripe-checkout": "^2.6.3"
-  },
-  "devDependencies": {
-    "eslint": "^8.23.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.2.5",
-    "eslint-plugin-promise": "^6.0.1",
-    "eslint-plugin-react": "^7.31.1"
   }
 }
