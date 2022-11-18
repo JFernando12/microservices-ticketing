@@ -3,7 +3,7 @@ import axios from 'axios';
 export default ({ req }) => {
   if (typeof window === 'undefined') {
     const client = axios.create({
-      baseURL: 'www.fernandocastrejon.com',
+      baseURL: 'http://www.fernandocastrejon.com',
       headers: req.headers,
     });
     return client;
